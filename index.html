@@ -1,0 +1,114 @@
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple AI Model</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #e8eaff;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .container {
+            background: white;
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px #aaa;
+        }
+
+        #chat {
+            height: 250px;
+            overflow-y: auto;
+            text-align: left;
+            margin-bottom: 15px;
+        }
+
+        input {
+            width: 65%;
+            padding: 10px;
+        }
+
+        button {
+            padding: 10px;
+            background: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>🤖 My Simple AI</h2>
+
+        <div id="chat">
+            <p><b>AI:</b> Hello! Ask me anything.</p>
+        </div>
+
+        <input id="question" placeholder="Type your message">
+        <button onclick="askAI()">Send</button>
+    </div>
+
+    <script>
+        function askAI() {
+            let input = document.getElementById("question");
+            let chat = document.getElementById("chat");
+            let question = input.value.toLowerCase().trim();
+
+            if (question === "") return;
+
+            chat.innerHTML += "<p><b>You:</b> " +
+                escapeHTML(input.value) + "</p>";
+
+            let answer = "";
+
+            if (question.includes("hello") || question.includes("hi")) {
+                answer = "Hello! How can I help you?";
+            } else if (question.includes("name")) {
+                answer = "I am your Simple AI chatbot.";
+            } else if (question.includes("how are you")) {
+                answer = "I am fine! Thank you.";
+            } else if (question.includes("time")) {
+                answer = new Date().toLocaleTimeString();
+            } else if (question.includes("date")) {
+                answer = new Date().toLocaleDateString();
+            } else if (question.includes("html")) {
+                answer = "HTML is used to create web pages.";
+            } else if (question.includes("bye")) {
+                answer = "Goodbye! Have a nice day.";
+            } else {
+                answer = "Interesting question! I am still learning.";
+            }
+
+            chat.innerHTML += "<p><b>AI:</b> " +
+                escapeHTML(answer) + "</p>";
+
+            input.value = "";
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        function escapeHTML(text) {
+            return text.replace(/[&<>"']/g, function(char) {
+                return {
+                    "&": "&amp;",
+                    "<": "&lt;",
+                    ">": "&gt;",
+                    '"': "&quot;",
+                    "'": "&#39;"
+                }[char];
+            });
+        }
+
+        document.getElementById("question")
+            .addEventListener("keydown", function(event) {
+                if (event.key === "Enter") askAI();
+            });
+    </script>
+</body>
+</html>
+```
